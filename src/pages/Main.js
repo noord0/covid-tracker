@@ -41,6 +41,7 @@ function Main() {
     // getCovidInfo().then((value) => {
     //   setTest(value);
     // });
+    setData(require("../data.json"));
     if (data !== 0) {
       const tempData = Array.from(data.Countries);
       if (
