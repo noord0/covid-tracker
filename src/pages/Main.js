@@ -25,10 +25,10 @@ const DropdownWrapper = styled.div`
 `;
 
 function Main() {
-  const [data, setData] = useState(0);
+  const [data, setData] = useState(require("../data.json"));
   const [sortedData, setSortedData] = useState(0);
   const [input, setInput] = useState("");
-  const [sortMethod, setSortMethod] = useState("");
+  const [sortMethod, setSortMethod] = useState("Alphabetical");
 
   // async function getCovidInfo() {
   //   let fetchedData = await fetch("https://api.covid19api.com/summary");
@@ -41,25 +41,26 @@ function Main() {
     // getCovidInfo().then((value) => {
     //   setTest(value);
     // });
-    setData(require("../data.json"));
-
     if (data !== 0) {
       const tempData = Array.from(data.Countries);
-      if (sortMethod.label === "Alphabetical") {
+      if (
+        sortMethod.label === "Alphabetical" ||
+        sortMethod === "Alphabetical"
+      ) {
         setSortedData(
           tempData.sort((a, b) => {
             return b.Country - a.Country;
           })
         );
       }
-      if (sortMethod.label === "Cases") {
+      if (sortMethod.label === "Cases" || sortMethod === "Cases") {
         setSortedData(
           tempData.sort((a, b) => {
             return b.TotalConfirmed - a.TotalConfirmed;
           })
         );
       }
-      if (sortMethod.label === "Deaths") {
+      if (sortMethod.label === "Deaths" || sortMethod === "Deaths") {
         setSortedData(
           tempData.sort((a, b) => {
             return b.TotalDeaths - a.TotalDeaths;
@@ -76,7 +77,7 @@ function Main() {
   const options = ["Alphabetical", "Cases", "Deaths"];
 
   return (
-    <Wrapper>
+    <Wrapper props={sortedData}>
       <Header handleInput={handleInput} input={input}></Header>
       <DropdownWrapper>
         Sort By
@@ -87,7 +88,7 @@ function Main() {
           placeholder="Sort By"
         />
       </DropdownWrapper>
-      <Grid props={sortMethod}>
+      <Grid props={sortedData}>
         {sortedData !== 0
           ? sortedData.map((country) => {
               return country.Country.toLowerCase().includes(
