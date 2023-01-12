@@ -30,12 +30,12 @@ function Main() {
   const [input, setInput] = useState("");
   const [sortMethod, setSortMethod] = useState("");
 
-  async function getCovidInfo() {
-    let fetchedData = await fetch("https://api.covid19api.com/summary");
-    const jsonData = await fetchedData.json();
-    if (jsonData.Message === "Caching in progress") return 0;
-    return jsonData;
-  }
+  // async function getCovidInfo() {
+  //   let fetchedData = await fetch("https://api.covid19api.com/summary");
+  //   const jsonData = await fetchedData.json();
+  //   if (jsonData.Message === "Caching in progress") return 0;
+  //   return jsonData;
+  // }
 
   useEffect(() => {
     // getCovidInfo().then((value) => {
